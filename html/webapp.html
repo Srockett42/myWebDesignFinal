@@ -3,52 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PM Experiment | Customer Calculator</title>
+    <title>PM Experiment | Growth Calculator</title>
+    <link rel="stylesheet" href="../styles/styles.css">
     <style>
-        body { font-family: 'Inter', sans-serif; padding: 20px; line-height: 1.6; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; color: #1e3a8a; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 200px; }
-        button { 
-            padding: 10px 20px; 
-            background-color: #3b82f6; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-        }
-        button:hover { background-color: #1d4ed8; }
-        #result { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #1E3A8A; font-size: 0.9em; }
+        input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .dashboard { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .metric { font-size: 1.5em; font-weight: bold; color: #3B82F6; }
+        button { width: 100%; padding: 12px; background: #1E3A8A; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #3B82F6; }
     </style>
 </head>
 <body>
 
-    <h2>Customer Conversion Calculator</h2>
+<div class="container">
+    <nav>
+        <h1><a href="../index.html">Home</a></h1> |
+        <h1><a href="scratch.html">Scratch</a></h1> |
+        <h1><a href="resume.html">Resume</a></h1>
+    </nav>
+
+    <h2>Growth & ROI Experiment Lab</h2>
+    <p>Use this tool to simulate the impact of conversion optimization on your bottom line.</p>
+
+    <div class="input-grid">
+        <div class="input-group">
+            <label>Monthly Traffic (Visitors)</label>
+            <input type="number" id="visitors" value="1000">
+        </div>
+        <div class="input-group">
+            <label>Conversion Rate (%)</label>
+            <input type="number" id="conversion" value="2" step="0.1">
+        </div>
+        <div class="input-group">
+            <label>Avg. Order Value ($)</label>
+            <input type="number" id="aov" value="65">
+        </div>
+        <div class="input-group">
+            <label>Ad Spend ($)</label>
+            <input type="number" id="spend" value="200">
+        </div>
+    </div>
+
+    <button onclick="calculate()">Run Experiment</button>
+
+    <div class="dashboard" style="margin-top: 20px;">
+        <div class="input-grid">
+            <div>
+                <p>New Customers</p>
+                <div id="res-cust" class="metric">0</div>
+            </div>
+            <div>
+                <p>Total Revenue</p>
+                <div id="res-rev" class="metric">$0</div>
+            </div>
+            <div>
+                <p>CAC (Acquisition Cost)</p>
+                <div id="res-cac" class="metric">$0</div>
+            </div>
+            <div>
+                <p>Net Profit</p>
+                <div id="res-profit" class="metric">$0</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calculate() {
+    const v = parseFloat(document.getElementById('visitors').value);
+    const c = parseFloat(document.getElementById('conversion').value) / 100;
+    const aov = parseFloat(document.getElementById('aov').value);
+    const spend = parseFloat(document.getElementById('spend').value);
+
+    const customers = v * c;
+    const revenue = customers * aov;
+    const cac = customers > 0 ? (spend / customers) : 0;
+    const profit = revenue - spend;
+
+    document.getElementById('res-cust').innerText = customers.toFixed(0);
+    document.getElementById('res-rev').innerText = "$" + revenue.toLocaleString();
+    document.getElementById('res-cac').innerText = "$" + cac.toFixed(2);
+    document.getElementById('res-profit').innerText = "$" + profit.toLocaleString();
     
-    <div class="input-group">
-        <label for="visitors">Total Monthly Visitors</label>
-        <input type="number" id="visitors" placeholder="e.g. 1000">
-    </div>
-
-    <div class="input-group">
-        <label for="conversion">Conversion Rate (%)</label>
-        <input type="number" id="conversion" placeholder="e.g. 5">
-    </div>
-
-    <button onclick="calculate()">Calculate Estimated Customers</button>
-
-    <p id="result"></p>
-
-    <script>
-    function calculate() {
-        let visitors = document.getElementById("visitors").value;
-        let conversion = document.getElementById("conversion").value;
-        // Calculation logic from original app
-        let customers = visitors * (conversion / 100);
-        document.getElementById("result").innerText =
-            "Estimated monthly customers: " + customers.toLocaleString();
-    }
-    </script>
+    // Visual cue for profit/loss
+    document.getElementById('res-profit').style.color = profit >= 0 ? "#10b981" : "#ef4444";
+}
+</script>
 
 </body>
 </html>
