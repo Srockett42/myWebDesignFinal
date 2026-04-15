@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Experiment | Customer Calculator</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; padding: 20px; line-height: 1.6; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #1e3a8a; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 200px; }
+        button { 
+            padding: 10px 20px; 
+            background-color: #3b82f6; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { background-color: #1d4ed8; }
+        #result { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <h2>Customer Conversion Calculator</h2>
+    
+    <div class="input-group">
+        <label for="visitors">Total Monthly Visitors</label>
+        <input type="number" id="visitors" placeholder="e.g. 1000">
+    </div>
+
+    <div class="input-group">
+        <label for="conversion">Conversion Rate (%)</label>
+        <input type="number" id="conversion" placeholder="e.g. 5">
+    </div>
+
+    <button onclick="calculate()">Calculate Estimated Customers</button>
+
+    <p id="result"></p>
+
+    <script>
+    function calculate() {
+        let visitors = document.getElementById("visitors").value;
+        let conversion = document.getElementById("conversion").value;
+        // Calculation logic from original app
+        let customers = visitors * (conversion / 100);
+        document.getElementById("result").innerText =
+            "Estimated monthly customers: " + customers.toLocaleString();
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+body { 
+    font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+    background-color: #f8fafc; /* Professional light gray/blue */
+    color: #1e293b;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2, h3 { color: #1e3a8a; }
+
+.container { max-width: 900px; margin: auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+.content-block { padding: 20px; border-bottom: 1px solid #e2e8f0; }
+.footer { text-align: center; margin-top: 40px; font-size: 0.9em; color: #64748b; }
+
+.highlight { color: #3b82f6; font-weight: bold; }
+nav a { text-decoration: none; color: #1e3a8a; font-weight: 600; margin: 0 10px; }
+nav a:hover { color: #3b82f6; }
